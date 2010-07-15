@@ -1,0 +1,9 @@
+---
+email:
+  to:     recipient@yourdomain.com        #Who the email report should go to
+  from:   sender@yourdomain.com           #Who the email is coming from
+  server: mail.yourdomain.com             #FQDN or IP of your mail server
+  host:   robologger.yourdomain.com       #FQDN or IP of the web server hosting this applicaiton
+
+parsing:
+  path_to_logs:   /shares/robocopy/logs   #path where the robocopy logs are stored with .txt extensions

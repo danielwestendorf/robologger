@@ -1,0 +1,7 @@
+<% @logs.each do |log| %>
+  <% errors = log.find_all_active_errors %>
+  <div class="<%= errors > 0 ? "errors" : "noErrors"  %>">
+    <a href="/log/<%= CGI::escape(log.name) %>"><%= log.name %></a> 
+    <span class="activeErrors"> Active Errors <%= errors  %></span>
+  </div>
+<% end %>

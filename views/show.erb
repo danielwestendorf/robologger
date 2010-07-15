@@ -1,0 +1,65 @@
+<% @logs.each do |log| %>
+<div id="<%= log.id %>" class="log <%= log.log_errors.count > 0 ? "errors" : "noErrors" %>">
+  <a href="/log/<%= log.id %>/output" class="logName"><%= log.name %></a> <span class="activeErrorCount">(<%= log.log_errors.all(:awk => false).count %> Active Errors) </span><span class="logDate"><%= date_format(log.created_at) %></span>
+  <div class="hiddenLogInfo">
+    <% if log.log_errors.count > 0 %>
+      <div class="logErrors">
+        <b>Errors:</b><br />
+        <% log.log_errors.each do |error| %>
+           <%= error.text %>&nbsp;<input class="awkCheckbox" type="checkbox" value="<%= error.id %>" <%= 'checked="" disabled="true"' if error.awk %>/> <span><%= error.awk ? 'Acknowledged!' : 'Acknowledge' %></span> <br />
+        <% end %>
+      </div>
+    <% end %>
+    <div class="logOutput">
+      <div class="loading"><img src="/images/loading.gif"/></div>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<script type="text/javascript">
+  function getLog(url, targetDiv) {
+    $.get(url, function(data) {
+      targetDiv.html(data)
+    })
+  }
+
+  function awkError(checkbox) {
+    id = checkbox.val()
+    $.ajax({
+      type: 'POST',
+      url:  '/errors',
+      data: { id: id },
+      success: function() {
+        checkbox.attr("checked", "yes");
+        checkbox.attr("disabled", "true");
+        checkbox.next('span').html("Acknowledged!");
+        activeErrors = checkbox.parent().parent().prev().prev('.activeErrorCount')
+        count = activeErrors.html().split("")[1] - 1
+        activeErrors.html("(" + count + " Active Errors)")
+      }
+    })
+  }
+  $(document).ready(function() {
+    
+    $('.hiddenLogInfo').hide();
+    
+    $('.logName').click(function() {
+      link = $(this);
+      hidden = link.siblings('div');
+      hidden.slideToggle();
+      target = hidden.children('.logOutput')
+      if (target.children('.loading').length > 0) {
+        setTimeout(function() {
+          getLog(link.attr("href"), target);
+        }, 1000)
+      }
+      return false;
+    })
+
+    $('.awkCheckbox').click(function() {
+      awkError($(this));
+    })
+
+  })
+</script>

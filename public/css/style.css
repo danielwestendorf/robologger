@@ -1,0 +1,13 @@
+#container { width: 80%; margin: auto; }
+.noErrors, .noErrors a { background-color: #CFC; color: green; text-decoration: none;}
+.errors, .errors a { background-color: #FCC; color: red; text-decoration: none;}
+.noErrors, .errors { padding: 5px; margin: 5px; }
+a:hover { text-decoration: underline; }
+.activeErrors { float: right; }
+.log { margin-top: 10px; }
+.logName, .logDate { font-weight: bold; }
+.logDate { float: right; }
+.logErrors { font-size: 0.8em; padding-left: 10px; margin: 10px auto; }
+.logOutput { width: 98%; margin: 10px auto; border: 1px solid black; background-color: white; height: 200px; overflow: auto; padding: 5px; color: black; }
+.loading { text-align: center; margin-top: 90px; }
+.error { color: red; }
