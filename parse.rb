@@ -23,4 +23,5 @@ log_files.each do |log|
   errors.each do |e|
     db_log.log_errors.create(:text => e)
   end
+  File.delete(log)
 end
