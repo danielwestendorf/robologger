@@ -9,6 +9,10 @@ class Log
   include DataMapper::Resource
   has n, :log_errors
 
+  before :destroy do
+    self.log_errors.each {|le| le.destroy }
+  end
+
   property :id,             Serial, :key => true
   property :name,           String
   property :output,         Text
