@@ -2,8 +2,8 @@ require 'dm-core'
 require 'dm-migrations'
 require 'dm-timestamps'
 
-#DataMapper::Logger.new($stdout, :debug) #Uncomment for DataMapper logging
-DataMapper.setup(:default, 'sqlite:robologger.db')
+DataMapper::Logger.new($stdout, :debug) #Uncomment for DataMapper logging
+DataMapper.setup(:default, 'mysql://robologger:robologger@powermon/robologger')
 
 class Log
   include DataMapper::Resource
