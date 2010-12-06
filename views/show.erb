@@ -4,6 +4,7 @@
   <div class="hiddenLogInfo">
     <% if log.log_errors.count > 0 %>
       <div class="logErrors">
+        <b><a href="javascript:void(0)" class="awkAll">Acknowledge All</a></b><br /><br />
         <b>Errors:</b><br />
         <% log.log_errors.each do |error| %>
            <%= error.text %>&nbsp;<input class="awkCheckbox" type="checkbox" value="<%= error.id %>" <%= 'checked="" disabled="true"' if error.awk %>/> <span><%= error.awk ? 'Acknowledged!' : 'Acknowledge' %></span> <br />
@@ -35,7 +36,7 @@
         checkbox.attr("disabled", "true");
         checkbox.next('span').html("Acknowledged!");
         activeErrors = checkbox.parent().parent().prev().prev('.activeErrorCount')
-        count = activeErrors.html().split("")[1] - 1
+        count = checkbox.parent().children('.awkCheckbox[checked=false]').length;
         activeErrors.html("(" + count + " Active Errors)")
       }
     })
@@ -60,6 +61,12 @@
     $('.awkCheckbox').click(function() {
       awkError($(this));
     })
+
+    $('.awkAll').click(function() {
+      $(this).parent().siblings('.awkCheckbox[checked=false]').each(function() {
+          awkError($(this));
+      })
+    });
 
   })
 </script>
