@@ -64,10 +64,7 @@
 
     $('.awkAll').click(function() {
       $(this).parent().siblings('.awkCheckbox[checked=false]').each(function() {
-        var input = $(this);
-        setTimeout(function() {awkError(input)}, 100);
-      });
-
+      awkError($(this));
     });
 
   })

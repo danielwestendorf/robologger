@@ -10,7 +10,7 @@ helpers do
 end
 
 get "/" do
-  logs = repository(:default).adapter.select('SELECT id, name FROM (SELECT id, name FROM logs GROUP BY name ORDER BY name ASC) ORDER BY name ASC')
+  logs = repository(:default).adapter.select('SELECT id, name FROM logs GROUP BY name ORDER BY name')
   @logs = []
   logs.each {|l| @logs << Log.get(l.id)}
   erb :index
