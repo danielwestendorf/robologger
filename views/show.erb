@@ -26,7 +26,7 @@
   }
 
   function awkError(checkbox) {
-    id = checkbox.val()
+    id = checkbox.val();
     $.ajax({
       type: 'POST',
       url:  '/errors',
@@ -64,8 +64,10 @@
 
     $('.awkAll').click(function() {
       $(this).parent().siblings('.awkCheckbox[checked=false]').each(function() {
-          awkError($(this));
-      })
+        var input = $(this);
+        setTimeout(function() {awkError(input)}, 100);
+      });
+
     });
 
   })
