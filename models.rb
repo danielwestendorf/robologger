@@ -15,7 +15,7 @@ class Log
 
   property :id,             Serial, :key => true
   property :name,           String
-  property :output,         Text, :min => 0, :max => 2 **64 - 1
+  property :output,         Text, :max => 2 **32 - 1
   property :created_at,     DateTime
 
   def find_all_active_errors
