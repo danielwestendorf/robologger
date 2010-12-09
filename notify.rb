@@ -45,7 +45,7 @@ def errors(logs_with_errors, error_count)
   mail.deliver!
 end
 
-logs = repository(:default).adapter.select('SELECT id, name FROM (SELECT id, name FROM logs GROUP BY name ORDER BY name ASC) ORDER BY name ASC')
+logs = repository(:default).adapter.select('SELECT id, name FROM logs GROUP BY name ORDER BY name')
 
 logs_with_errors = []
 error_count = 0
